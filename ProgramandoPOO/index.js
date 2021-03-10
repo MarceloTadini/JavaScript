@@ -21,19 +21,21 @@ cliente3.nome = "João";
 cliente3.cpf = 55566622290;
 
 const contaCorrenteMarcelo = new ContaCorrente();
-
+contaCorrenteMarcelo.cliente = cliente1;
 contaCorrenteMarcelo.agencia = 1001;
-contaCorrenteMarcelo.depositar(450);
-const valorSacado = contaCorrenteMarcelo.sacar(200);
+contaCorrenteMarcelo.depositar(500);
 
-
-console.log(valorSacado);
 
 const contaCorrenteAna = new ContaCorrente();
-
-contaCorrenteAna.agencia = 1001;
+contaCorrenteAna.cliente = cliente2;
+contaCorrenteAna.agencia = 1002;
 
 const contaCorrenteJoao = new ContaCorrente();
+contaCorrenteJoao.cliente = cliente3;
+contaCorrenteJoao.agencia = 1003;
 
-contaCorrenteJoao.agencia = 1001;
+let valorTranferido = 200;
 
+contaCorrenteMarcelo.transferir(valorTranferido, contaCorrenteAna);
+
+console.log(contaCorrenteMarcelo, "\n", contaCorrenteAna);
