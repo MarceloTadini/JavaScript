@@ -3,6 +3,10 @@ export class Conta{
         this._saldo = saldoInicial;
         this._cliente = cliente;
         this._agencia = agencia;
+
+        if(this.constructor == Conta){ //esse if não vale para as classes que herdam a classe "Conta"
+            console.log("Você não deveria instanciar um objeto do tipo conta!!!");
+        }
     }
 
     set cliente(nome){
@@ -33,7 +37,7 @@ export class Conta{
             return valorSacado;
         }
         
-        return 0;
+        return 0;     
     }
 
     depositar(valor){
