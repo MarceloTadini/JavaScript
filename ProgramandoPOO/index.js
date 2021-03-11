@@ -8,8 +8,10 @@ const cliente1 = new Cliente("Marcelo", 11122233345);
 
 const contaCorrenteMarcelo = new ContaCorrente(cliente1, 1001);
 contaCorrenteMarcelo.depositar(500);
+contaCorrenteMarcelo.sacar(100);
 
-const contaPoupanca = new ContaPoupanca(cliente1, contaCorrenteMarcelo.agencia);
+const contaPoupanca = new ContaPoupanca(50 ,cliente1, contaCorrenteMarcelo.agencia);
+contaPoupanca.sacar(25);
 
-console.log(contaCorrenteMarcelo);
+console.log(contaPoupanca);
 
