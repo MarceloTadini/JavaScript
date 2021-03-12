@@ -1,12 +1,13 @@
 export class Conta{
     constructor(saldoInicial, cliente, agencia){
+
+        if(this.constructor == Conta){ //esse if não vale para as classes que herdam a classe "Conta"
+            throw new Error ("Você não deveria instanciar um objeto do tipo Conta diretamente!!!"); //classe abstrata
+        }
+
         this._saldo = saldoInicial;
         this._cliente = cliente;
         this._agencia = agencia;
-
-        if(this.constructor == Conta){ //esse if não vale para as classes que herdam a classe "Conta"
-            console.log("Você não deveria instanciar um objeto do tipo conta!!!");
-        }
     }
 
     set cliente(nome){
