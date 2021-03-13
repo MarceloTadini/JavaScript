@@ -1,5 +1,8 @@
 /*
  Ser autenticavel significa ter a propriedade "senha"
+
+ Ducky Type = se comporta como um pato, anda e faz barulho como um, 
+              não me interessa se ele realmente é um pato, vou tratá-lo como um.
 */
 
 export class SistemaDeAutenticacao{
