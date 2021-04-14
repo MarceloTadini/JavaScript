@@ -1,4 +1,4 @@
-const criarTarefa = (evento)=> {
+( () => {const criarTarefa = (evento)=> {
     evento.preventDefault(); //evita o recarregamento da página
     
     const inputTarefa = document.querySelector('[data-form-input]');
@@ -11,6 +11,7 @@ const criarTarefa = (evento)=> {
 
     tarefa.innerHTML = conteudo; //Atribuindo conteúdo a tarefa
     tarefa.appendChild(BotãoConclui());
+    tarefa.appendChild(BotaoDeleta());
     lista.appendChild(tarefa); //Declarando a 'li' como pai de 'p' e adicionando 'p' embaixo de 'p'
 
 
@@ -26,15 +27,33 @@ const BotãoConclui = () =>{
     botaoConclui.classList.add('check-button');
     botaoConclui.innerText = 'Concluir'; //Atribuindo o texto do botão
     
-    botaoConclui.addEventListener('click', ConcluirTarefa)
+    botaoConclui.addEventListener('click', concluirTarefa)
 
     return botaoConclui;
 }
 
-const ConcluirTarefa = (evento) =>{
-    const botaoConclui = evento.target; //Recebe o elemento clicado
+const concluirTarefa = (evento) =>{
+    const botaoConclui = evento.target; //Recebe o alvo do elemento clicado
 
     const tarefaConcluida = botaoConclui.parentElement; //Pegando o pai do 'button', que é o 'li'
 
     tarefaConcluida.classList.toggle('done'); //Adiciona a classe done na classe anterior fazendo risco
 }
+
+const BotaoDeleta = () =>{
+    const botaoDeleta = document.createElement('button');
+    botaoDeleta.innerText = 'Deletar';
+    
+    botaoDeleta.addEventListener('click', deletarTarefa);
+
+    return botaoDeleta;
+}
+
+const deletarTarefa = (evento) =>{
+    const botaoDeleta = evento.target;
+    const tarefaConcluida = botaoDeleta.parentElement;
+
+    tarefaConcluida.remove(); //Remove o nó da árvore
+}
+
+})() //Funçõ de invocação imediata para proteger as regras de negócio
