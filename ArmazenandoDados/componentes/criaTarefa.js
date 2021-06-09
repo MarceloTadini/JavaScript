@@ -1,45 +1,54 @@
-import BotaoConclui from './concluiTarefa.js';
-import BotaoDeleta from './deletaTarefa.js';
+import { carregaTarefa } from './carregaTarefa.js'
+import BotaoConclui from './concluiTarefa.js'
+import BotaoDeleta from './deletaTarefa.js'
  
-export const handleNewItem = (evento) => {
-    evento.preventDefault();
 
-    const tarefas = JSON.parse(localStorage.getItem('tarefas')) || [];
+export const handleNovoItem = (evento) => {
+    evento.preventDefault()
+    const tarefas = JSON.parse(localStorage.getItem('tarefas'))||[]
+    const input = document.querySelector('[data-form-input]')
+    const valor = input.value
 
-    const lista = document.querySelector('[data-list]');
-    const input = document.querySelector('[data-form-input]');
-    const valor = input.value;
+    const calendario = document.querySelector('[data-form-date]')
+    const data = moment(calendario.value)
+    const horario = data.format('HH:mm')
 
-    const calendar = document.querySelector('[data-form-date]');
-    const date = moment(calendar.value); //Recebe o valor do input da data a lib moment
-    const dateFormat = date.format('DD/MM/YYYY');
+    const dataFormatada = data.format('DD/MM/YYYY')
+    const concluida = false
 
-    const datas = {
-        valor, 
-        dateFormat
+    const dados = { 
+        valor,
+        dataFormatada,
+        horario,
+        concluida
     }
 
-    const tarefasAtualizadas = [...tarefas, datas];
+    const tarefasAtualizadas = [...tarefas, dados]
 
-    const criaTarefa = Tarefa(datas);
+    localStorage.setItem('tarefas', JSON.stringify(tarefasAtualizadas))
 
-    lista.appendChild(criaTarefa);
+    input.value = " "
 
-    localStorage.setItem('tarefas', JSON.stringify(tarefasAtualizadas));
-
-    input.value = " ";
+    carregaTarefa()
+    
 }
 
-export const Tarefa = ({valor, dateFormat}) => {
+export const Tarefa = ({ valor, horario, concluida}, id) => {
 
-    const tarefa = document.createElement('li');
-    tarefa.classList.add('task');
-    const conteudo = `<p class="content">${dateFormat} * ${valor}</p>`;
+    const tarefa = document.createElement('li')
+    const conteudo = `<p class="content">${horario} * ${valor}</p>`
 
-    tarefa.innerHTML = conteudo;
+    if(concluida){
+        tarefa.classList.add('done')
+    }
 
-    tarefa.appendChild(BotaoConclui());
-    tarefa.appendChild(BotaoDeleta());
-    
-    return tarefa;
+    tarefa.classList.add('task')
+
+    tarefa.innerHTML = conteudo
+
+    tarefa.appendChild(BotaoConclui(carregaTarefa, id))
+    tarefa.appendChild(BotaoDeleta(carregaTarefa, id))
+   
+    return tarefa
+
 }
